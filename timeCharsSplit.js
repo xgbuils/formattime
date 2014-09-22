@@ -1,12 +1,4 @@
-var conversion = {
-    D: 'Date',
-    M: 'Month',
-    Y: 'FullYear',
-    H: 'Hours',
-    h: 'Hours',
-    m: 'Minutes',
-    s: 'Seconds',
-}
+var conversion = require('./conversion')
 
 function timeCharsSplit(str) {
     var n = str.length
