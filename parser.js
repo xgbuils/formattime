@@ -3,22 +3,30 @@ var getRepetitions = require('./getRepetitions')
 
 var REGEXP = /([DMYHhms]+)|\[([^\]]+)\]|\{([\d,\s]+)|([+*])\}/g
 
-function parser (str) {
+function parser (str, conversor) {
     var array = []
       , index = 0
       , begin = 0
       , braces = false
-    str.replace(REGEXP, function(m, a, b, c, d, offset) {
-    	var match
+
+    var pattern = '(['
+    for (var i in conversor) {
+        pattern += i
+    }
+    pattern += ']+)|\\[([^\\]]+)\\]|\\{([\\d,\\s]+)\\}|([+*])'
+    var regexp = new RegExp(pattern, 'g')
+
+
+    str.replace(regexp, function(m, chars, escaped, c, d, offset) {
+        var match
         if(begin !== offset) {
             array[index] = str.substring(begin, offset)
             braces = false
             ++index
         }
         begin = offset + m.length
-
-        if (a) {
-            var timeFlags = timeCharsSplit(a)
+        if (chars) {
+            var timeFlags = timeCharsSplit(chars, conversor)
             for (var i in timeFlags) {
                 array[index] = timeFlags[i]
                 array[index][2] = array[index][1]
@@ -26,8 +34,8 @@ function parser (str) {
             }
             --index
             braces = true
-        } else if (b) {
-            array[index] = b
+        } else if (escaped) {
+            array[index] = escaped
             braces = false
         } else if (match = (c || d)) {
             if(braces ) {
@@ -35,19 +43,24 @@ function parser (str) {
 
                 if(typeof rep !== 'string') {
                     --index
-                    var n = array[index][1]
-                    array[index][1] = rep[0] + n - 1
-                    array[index][2] = rep[1] + n - 1
+                    array[index][1] += rep[0] - 1
+                    if(rep[1])
+                        array[index][2] += rep[1] - 1
+                    else if(array[index].length === 3)
+                        array[index].pop()
                 } else {
-                    array[index] = c
+                    array[index] = rep
                 }
             } else {
-                array[index] = c
+                array[index] = c ? '{' + c + '}' : d
             }
             braces = false
         }
         ++index
     })
+    if(begin !== str.length) {
+        array[index] = str.substring(begin)
+    }
     return array
 }
 
