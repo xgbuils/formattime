@@ -1,6 +1,4 @@
-var conversion = require('./conversion')
-
-function timeCharsSplit(str) {
+function timeCharsSplit(str, conversor) {
     var n = str.length
       , init = true
       , ch
@@ -19,7 +17,7 @@ function timeCharsSplit(str) {
                 ++count
                 ++i
             } else {
-                array.push([conversion[ch], count])
+                array.push([conversor[ch], count, count])
                 ch = undefined
                 init = true
             }
