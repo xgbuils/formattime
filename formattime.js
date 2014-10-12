@@ -1,4 +1,4 @@
-var timeCharsSplit = require('./timeCharsSplit')
+/*var timeCharsSplit = require('./timeCharsSplit')
 var getRepetitions = require('./getRepetitions')
 var parser = require('./parser')
 
@@ -15,7 +15,7 @@ function fillNumber(num, m, n, ch) {
     if (n !== undefined && length > n) {
         result = numstr.substring(0, n)
     } else {
-        for (var i = length; i < m; ++i) {
+        for (var i = length; i < m; i++) {
             result += ch
         }
         result += numstr
@@ -82,7 +82,7 @@ FormatTime.prototype.get = function (value) {
 
 var ft = new FormatTime('DD-MM-YYYY')
 console.log(ft.format)
-ft.get('23-13-2112')
+ft.get('23-13-2112')*/
 
 /*var list = []
 var str = 'kjldshfb kgbsssk{sk}lhhMsss{34  , 45}ah[wrtw]hdMM{2,}.h.*hdhdbhfYYYYbewrugfb'

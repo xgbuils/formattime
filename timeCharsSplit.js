@@ -11,11 +11,11 @@ function timeCharsSplit(str, conversor) {
             ch = str[i]
             count = 1
             init = false
-            ++i
+            i++
         } else {
             if (ch === str[i]) {
-                ++count
-                ++i
+                count++
+                i++
             } else {
                 array.push([conversor[ch], count, count])
                 ch = undefined

@@ -22,7 +22,7 @@ function parser (str, conversor) {
         if(begin !== offset) {
             array[index] = str.substring(begin, offset)
             braces = false
-            ++index
+            index++
         }
         begin = offset + m.length
         if (chars) {
@@ -30,33 +30,36 @@ function parser (str, conversor) {
             for (var i in timeFlags) {
                 array[index] = timeFlags[i]
                 array[index][2] = array[index][1]
-                ++index
+                index++
             }
-            --index
+            index--
             braces = true
         } else if (escaped) {
             array[index] = escaped
             braces = false
-        } else if (match = (c || d)) {
-            if(braces ) {
-                var rep = getRepetitions(match)
-
-                if(typeof rep !== 'string') {
-                    --index
-                    array[index][1] += rep[0] - 1
-                    if(rep[1])
-                        array[index][2] += rep[1] - 1
-                    else if(array[index].length === 3)
-                        array[index].pop()
+        } else {
+            match = (c || d)
+            if (match) {
+                if(braces ) {
+                    var rep = getRepetitions(match)
+    
+                    if(typeof rep !== 'string') {
+                        index--
+                        array[index][1] += rep[0] - 1
+                        if(rep[1])
+                            array[index][2] += rep[1] - 1
+                        else if(array[index].length === 3)
+                            array[index].pop()
+                    } else {
+                        array[index] = rep
+                    }
                 } else {
-                    array[index] = rep
+                    array[index] = c ? '{' + c + '}' : d
                 }
-            } else {
-                array[index] = c ? '{' + c + '}' : d
+                braces = false
             }
-            braces = false
         }
-        ++index
+        index++
     })
     if(begin !== str.length) {
         array[index] = str.substring(begin)
