@@ -1,4 +1,4 @@
-var timeCharsSplit = require('../timeCharsSplit')
+var timeCharsSplit = require('../src/timeCharsSplit')
 var util = require('util')
 
 var array = [ 

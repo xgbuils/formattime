@@ -1,4 +1,4 @@
-var getRepetitions = require('../getRepetitions')
+var getRepetitions = require('../src/getRepetitions')
 var util = require('util')
 
 var array = [ 

@@ -1,4 +1,4 @@
-var parser = require('../parser')
+var parser = require('../src/parser')
 var util = require('util')
 
 var array = [ 

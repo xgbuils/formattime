@@ -1,8 +1,6 @@
 var timeCharsSplit = require('./timeCharsSplit')
 var getRepetitions = require('./getRepetitions')
 
-var REGEXP = /([DMYHhms]+)|\[([^\]]+)\]|\{([\d,\s]+)|([+*])\}/g
-
 function parser (str, conversor) {
     var array = []
       , index = 0
